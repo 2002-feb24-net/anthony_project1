@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
 namespace BalloonParty.Core.Models
 {
     public class CustomerOrders
@@ -17,7 +21,7 @@ namespace BalloonParty.Core.Models
             {
                 if (value.Length == 0)
                 {
-                    throw new ArgumentException("First Name Must Not Be Empty.", nameof(value));
+                    throw new ArgumentException("Email Must Not Be Empty.", nameof(value));
                 }
                 _CustomerEmail = value;
             }
@@ -30,7 +34,7 @@ namespace BalloonParty.Core.Models
             {
                 if (value.Length == 0)
                 {
-                    throw new ArgumentException("First Name Must Not Be Empty.", nameof(value));
+                    throw new ArgumentException("Order Date Must Not Be Empty.", nameof(value));
                 }
                 _OrderDate = value;
             }
@@ -43,7 +47,7 @@ namespace BalloonParty.Core.Models
             {
                 if (value.Length == 0)
                 {
-                    throw new ArgumentException("First Name Must Not Be Empty.", nameof(value));
+                    throw new ArgumentException("Total Product Count Must Not Be Less Than 0.", nameof(value));
                 }
                 _FullProductCount = value;
             }
@@ -56,24 +60,13 @@ namespace BalloonParty.Core.Models
             {
                 if (value.Length == 0)
                 {
-                    throw new ArgumentException("First Name Must Not Be Empty.", nameof(value));
+                    throw new ArgumentException("Total Price Cannot Be Less Than 0", nameof(value));
                 }
                 _TotalPrice = value;
             }
         }
 
-        public string  CustomerOrderId
-        {
-            get => _CustomerOrderId;
-            set
-            {
-                if (value.Length == 0)
-                {
-                    throw new ArgumentException("First Name Must Not Be Empty.", nameof(value));
-                }
-                _CustomerOrderId = value;
-            }
-        }
+        public string  CustomerOrderId { get; set; }
 
         public string  ProductName
         {
@@ -82,7 +75,7 @@ namespace BalloonParty.Core.Models
             {
                 if (value.Length == 0)
                 {
-                    throw new ArgumentException("First Name Must Not Be Empty.", nameof(value));
+                    throw new ArgumentException("Product Name Must Not Be Empty.", nameof(value));
                 }
                 _ProductName = value;
             }
