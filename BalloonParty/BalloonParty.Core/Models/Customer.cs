@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BalloonParty.Core.Models
 {
-    public class Customers
+    public class Customer
     {
         private string _FirstName { get; set; }
         private string _LastName { get; set; }
@@ -109,7 +109,7 @@ namespace BalloonParty.Core.Models
             get => _ZipCode;
             set
             {
-                if (value.Length == 0)
+                if (value < 0)
                 {
                     throw new ArgumentException("Last Name Must Not Be Empty.", nameof(value));
                 }

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace BalloonParty.Infra.Data
+namespace BalloonParty.DataAccess.SQLData
 {
     public partial class BalloonPartyContext : DbContext
     {
@@ -27,8 +27,8 @@ namespace BalloonParty.Infra.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-
-                optionsBuilder.UseSqlServer("ConnectionStringHere");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=tcp:rev-2020-anthonyh.database.windows.net,1433;Initial Catalog=BalloonParty;Persist Security Info=False;User ID=ghostpartical;Password=Coding0981; MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
             }
         }
 
