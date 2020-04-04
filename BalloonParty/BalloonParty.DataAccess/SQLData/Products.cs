@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BalloonParty.Infra.Data
+namespace BalloonParty.DataAccess.SQLData
 {
     public partial class Products
     {
