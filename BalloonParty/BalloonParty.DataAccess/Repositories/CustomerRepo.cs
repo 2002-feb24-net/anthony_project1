@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using BalloonParty.Core.Interfaces;
 using BalloonParty.DataAccess.SQLData;
@@ -13,6 +14,8 @@ namespace BalloonParty.DataAccess.Repositories
     {
 
         private BalloonPartyContext _context;
+
+
         public void CustomersRepository()
         {
             _context = new BalloonPartyContext();
@@ -23,20 +26,27 @@ namespace BalloonParty.DataAccess.Repositories
             _context = context;
         }
 
-        // public IEnumerable<Customers> GetCustomers(string EmailAddress)
-        // {
-        //     return _context.Customer.ToList();
-        // }
-
+        // Gets the customer by their ID(email address)
         public Core.Models.Customer GetCustomersByID(string EmailAddress)
         {
-            return _context.Customer.Find(EmailAddress);
+            var customer = _context.Customer.Find(EmailAddress);
+            if(customer != null)
+            {
+                return Mapper.MapCustomerByID(customer);
+            }
+            return null;
         }
 
+        // adds customer to db
         public void AddCustomer (BalloonParty.Core.Models.Customer customer)
         {
             BalloonParty.DataAccess.SQLData.Customer entity = Mapper.MapCustomer(customer);
             _context.Add(entity);
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
     }
 }

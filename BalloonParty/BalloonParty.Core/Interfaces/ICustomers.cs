@@ -10,6 +10,7 @@ namespace BalloonParty.Core.Interfaces
         // IEnumerable<Customers> GetCustomers(string EmailAddress);
 
         Customer GetCustomersByID(string EmailAddress);
-        Customer AddCustomer(Customer customer);
+        void AddCustomer(Customer customer);
+        void Save();
     }
 }
