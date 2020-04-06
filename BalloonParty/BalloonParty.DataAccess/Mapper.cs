@@ -1,11 +1,14 @@
 using System;
 using System.Linq;
 using BalloonParty.Core.Models;
+using System.Collections.Generic;
+using BalloonParty.DataAccess.SQLData;
 
 namespace BalloonParty.DataAccess
 {
     public class Mapper
     {
+
 
         public static BalloonParty.DataAccess.SQLData.Customer MapCustomer(BalloonParty.Core.Models.Customer customer)
         {
@@ -34,6 +37,16 @@ namespace BalloonParty.DataAccess
                 City = customer.City,
                 State = customer.State,
                 ZipCode = customer.ZipCode,
+            };
+        }
+
+        public static BalloonParty.DataAccess.SQLData.Customer MapAllCustomers(BalloonParty.Core.Models.Customer customer)
+        {
+            return new BalloonParty.DataAccess.SQLData.Customer
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                EmailAddress = customer.EmailAddress,
             };
         }
     }

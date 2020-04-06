@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using BalloonParty.Core.Models;
 
 namespace BalloonParty.DataAccess.SQLData
 {
@@ -27,7 +28,7 @@ namespace BalloonParty.DataAccess.SQLData
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("ConnnectionStringGoesHere");
+                optionsBuilder.UseSqlServer(EfSecretFile.ConnectionString);
             }
         }
 
