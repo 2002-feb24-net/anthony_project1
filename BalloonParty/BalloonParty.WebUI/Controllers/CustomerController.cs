@@ -9,9 +9,9 @@ using BalloonParty.DataAccess.SQLData;
 
 namespace BalloonParty.WebUI.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomerController : Controller 
     {
-        private readonly BalloonPartyContext _context;
+        private readonly BalloonPartyContext _context = new BalloonPartyContext(); // maybe this was uninitialized
 
         public CustomerController(BalloonPartyContext context)
         {
