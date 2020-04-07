@@ -26,5 +26,5 @@ steps:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Azure subscription 1(75fd32f2-6a0a-4ac5-a9b2-77bced7a92c5)'
     appType: 'webApp'
-    WebAppName: 'Balloon Party'
+    WebAppName: 'BalloonParty-Anthony'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
