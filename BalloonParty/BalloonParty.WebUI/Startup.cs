@@ -27,9 +27,9 @@ namespace BalloonParty.WebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            
             services.AddDbContext<BalloonParty.DataAccess.SQLData.BalloonPartyContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("BalloonPartyContext")));
+                options.UseSqlServer(Configuration["ConnectionStrings__BalloonPartyContext"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
