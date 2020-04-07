@@ -24,13 +24,13 @@ namespace BalloonParty.DataAccess.SQLData
         public virtual DbSet<Store> Store { get; set; }
         public virtual DbSet<StoreInventory> StoreInventory { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer(EfSecretFile.ConnectionString);
-            }
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     if (!optionsBuilder.IsConfigured)
+        //     {
+        //         optionsBuilder.UseSqlServer(EfSecretFile.ConnectionString);
+        //     }
+        // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
