@@ -10,7 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BalloonParty.DataAccess.SQLData;
 using Microsoft.EntityFrameworkCore;
-
+using BalloonParty.DataAccess.Repositories;
+using BalloonParty.Core.Interfaces;
 
 namespace BalloonParty.WebUI
 {
@@ -27,7 +28,9 @@ namespace BalloonParty.WebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            
+            services.AddScoped<ICustomers, CustomerRepo>();
+
+
             services.AddDbContext<BalloonParty.DataAccess.SQLData.BalloonPartyContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings__BalloonPartyContext"]));
         }

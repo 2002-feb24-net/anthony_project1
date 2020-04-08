@@ -6,17 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BalloonParty.DataAccess.SQLData;
+using BalloonParty.DataAccess.Repositories;
+using BalloonParty.Core.Interfaces;
 
 namespace BalloonParty.WebUI.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly BalloonPartyContext _context;
-
-        public CustomerController(BalloonPartyContext context)
+        private readonly BalloonParty.Core.Interfaces.ICustomers _repo;
+        public CustomerController(BalloonParty.Core.Interfaces.ICustomers repo)
         {
-            _context = context;
+            _repo = repo;
         }
+        private readonly BalloonPartyContext _context;
 
         // GET: Customer
         public async Task<IActionResult> Index()
@@ -25,21 +27,32 @@ namespace BalloonParty.WebUI.Controllers
         }
 
         // GET: Customer/Details/5
-        public async Task<IActionResult> Details(string id)
+        // public async Task<IActionResult> Details(string id)
+        // {
+        //     if (id == null)
+        //     {
+        //         return NotFound();
+        //     }
+        //     var allCustomers = new BalloonParty.DataAccess.Repositories.CustomerRepo.GetCustomers();
+        //     var customer = await allCustomers
+        //         .FirstOrDefaultAsync(m => m.EmailAddress == id);
+        //     if (customer == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     return View(customer);
+        // }
+
+        public ActionResult Details(string id)
         {
-            if (id == null)
+            var info = _repo.GetCustomersByID(id);
+            if (info == null)
             {
                 return NotFound();
             }
 
-            var customer = await _context.Customer
-                .FirstOrDefaultAsync(m => m.EmailAddress == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return View(customer);
+            return View(info);
         }
 
         // GET: Customer/Create
@@ -49,7 +62,7 @@ namespace BalloonParty.WebUI.Controllers
         }
 
         // POST: Customer/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -81,7 +94,7 @@ namespace BalloonParty.WebUI.Controllers
         }
 
         // POST: Customer/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]

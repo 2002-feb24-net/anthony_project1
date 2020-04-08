@@ -39,15 +39,5 @@ namespace BalloonParty.DataAccess
                 ZipCode = customer.ZipCode,
             };
         }
-
-        public static BalloonParty.DataAccess.SQLData.Customer MapAllCustomers(BalloonParty.Core.Models.Customer customer)
-        {
-            return new BalloonParty.DataAccess.SQLData.Customer
-            {
-                FirstName = customer.FirstName,
-                LastName = customer.LastName,
-                EmailAddress = customer.EmailAddress,
-            };
-        }
     }
 }
