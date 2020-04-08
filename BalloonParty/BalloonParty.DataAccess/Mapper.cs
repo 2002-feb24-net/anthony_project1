@@ -10,9 +10,9 @@ namespace BalloonParty.DataAccess
     {
 
 
-        public static BalloonParty.DataAccess.SQLData.Customer MapCustomer(BalloonParty.Core.Models.Customer customer)
+        public static BalloonParty.Core.Models.Customer MapCustomer(BalloonParty.DataAccess.SQLData.Customer customer)
         {
-            return new BalloonParty.DataAccess.SQLData.Customer
+            return new BalloonParty.Core.Models.Customer
             {
                 FirstName = customer.FirstName,
                 LastName = customer.LastName,

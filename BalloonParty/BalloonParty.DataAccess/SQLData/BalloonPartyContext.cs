@@ -7,13 +7,11 @@ namespace BalloonParty.DataAccess.SQLData
 {
     public partial class BalloonPartyContext : DbContext
     {
-        public BalloonPartyContext()
-        {
-        }
 
         public BalloonPartyContext(DbContextOptions<BalloonPartyContext> options)
             : base(options)
         {
+            
         }
 
         public virtual DbSet<Customer> Customer { get; set; }

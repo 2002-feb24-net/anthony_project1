@@ -21,33 +21,24 @@ namespace BalloonParty.DataAccess.Repositories
         }
 
         // Gets the customer by their ID(email address)
-        public BalloonParty.DataAccess.SQLData.Customer GetCustomersByID(string EmailAddress)
+        public BalloonParty.Core.Models.Customer GetCustomersByID(string EmailAddress)
         {
 
-            var customer = _context.Customer.Find(EmailAddress);
+            var customer = _context.Customer.First(p => p.EmailAddress == EmailAddress);
 
             if(customer == null)
             {
                 return null;
             }
-            return customer;
+            return BalloonParty.DataAccess.Mapper.MapCustomerByID(customer);
         }
 
-        // adds customer to db
-        // public void AddCustomer (BalloonParty.Core.Models.Customer customer)
-        // {
-        //     BalloonParty.DataAccess.SQLData.Customer entity = Mapper.MapCustomer(customer);
-        //     _context.Add(entity);
-        // }
+        public List<BalloonParty.Core.Models.Customer> GetAllCustomers()
+        {
+            var customers = _context.Customer.ToList();
 
-        // public static List<DataAccess.SQLData.Customer> GetCustomers()
-        // {
-        //     BalloonPartyContext _context = new BalloonPartyContext();
-
-        //     var customers = _context.Customer.ToList();
-        //     return customers;
-        // }
-
+            return customers.Select(Mapper.MapCustomer).ToList();
+        }
         public void Save()
         {
             _context.SaveChanges();
