@@ -5,19 +5,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using BalloonParty.DataAccess.SQLData;
+//using BalloonParty.DataAccess.SQLData;
 using BalloonParty.DataAccess.Repositories;
 using BalloonParty.Core.Interfaces;
+using BalloonParty.WebUI.Models;
 
 namespace BalloonParty.WebUI.Controllers
 {
     public class CustomerController : Controller
     {
         private readonly BalloonParty.Core.Interfaces.ICustomers _repo;
-        public CustomerController(BalloonParty.Core.Interfaces.ICustomers repo)
+        private readonly BalloonParty.DataAccess.SQLData.BalloonPartyContext _context;
+        public CustomerController(BalloonParty.Core.Interfaces.ICustomers repo, BalloonParty.DataAccess.SQLData.BalloonPartyContext context)
         {
             _repo = repo;
+            _context = context;
         }
+
+
         //
 
         // GET: Customer
@@ -33,7 +38,7 @@ namespace BalloonParty.WebUI.Controllers
             {
                 return NotFound();
             }
-            return Index();
+            return View(info);
         }
 
         // GET: Customer/Details/5
@@ -66,9 +71,27 @@ namespace BalloonParty.WebUI.Controllers
         }
 
         // GET: Customer/Create
-        public IActionResult Create()
+
+        public async Task<ActionResult> Create([Bind("FirstName,LastName,EmailAddress,CustomerPw,Address,City,State,ZipCode")] CustomerViewModel viewModel)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var newCustomer = new BalloonParty.DataAccess.SQLData.Customer
+                {
+                    FirstName = viewModel.FirstName,
+                    LastName = viewModel.LastName,
+                    EmailAddress = viewModel.EmailAddress,
+                    CustomerPw = viewModel.CustomerPw,
+                    Address =  viewModel.Address,
+                    City = viewModel.City,
+                    State = viewModel.State,
+                    ZipCode = int.Parse(viewModel.ZipCode),
+                };
+                _context.Add(newCustomer);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return  View(viewModel);
         }
 
         // POST: Customer/Create
@@ -76,16 +99,19 @@ namespace BalloonParty.WebUI.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         // [HttpPost]
         // [ValidateAntiForgeryToken]
-        // public async Task<IActionResult> Create([Bind("FirstName,LastName,EmailAddress,CustomerPw,Address,City,State,ZipCode")] Customer customer)
+        // public async Task<IActionResult> Create([Bind("FirstName,LastName,EmailAddress,CustomerPw,Address,City,State,ZipCode")] Core.Models.Customer customer)
         // {
         //     if (ModelState.IsValid)
         //     {
+        //         _repo.
         //         _context.Add(customer);
         //         await _context.SaveChangesAsync();
         //         return RedirectToAction(nameof(Index));
         //     }
         //     return View(customer);
         // }
+
+
 
         // // GET: Customer/Edit/5
         // public async Task<IActionResult> Edit(string id)

@@ -25,6 +25,21 @@ namespace BalloonParty.DataAccess
             };
         }
 
+        public static BalloonParty.DataAccess.SQLData.Customer MapCustomer1(BalloonParty.Core.Models.Customer customer)
+        {
+            return new BalloonParty.DataAccess.SQLData.Customer
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                EmailAddress = customer.EmailAddress,
+                CustomerPw = customer.CustomerPw,
+                Address = customer.Address,
+                City = customer.City,
+                State = customer.State,
+                ZipCode = customer.ZipCode,
+            };
+        }
+
         public static BalloonParty.Core.Models.Customer MapCustomerByID(BalloonParty.DataAccess.SQLData.Customer customer)
         {
             return new BalloonParty.Core.Models.Customer

@@ -15,7 +15,7 @@ namespace BalloonParty.DataAccess.Repositories
 
         private BalloonPartyContext _context;
 
-        public void CustomersRepository(BalloonPartyContext context)
+        public CustomerRepo(BalloonPartyContext context)
         {
             _context = context;
         }
@@ -39,9 +39,18 @@ namespace BalloonParty.DataAccess.Repositories
 
             return customers.Select(Mapper.MapCustomer).ToList();
         }
+
+        public void AddNewCustomer()
+        {
+            var newCustomer = _context.Customer;
+            _context.Add(newCustomer);
+            Save();
+        }
+
         public void Save()
         {
             _context.SaveChanges();
         }
+
     }
 }
