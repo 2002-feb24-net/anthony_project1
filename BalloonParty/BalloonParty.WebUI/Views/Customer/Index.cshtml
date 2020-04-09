@@ -1,4 +1,4 @@
-@model IEnumerable<BalloonParty.DataAccess.SQLData.Customer>
+@model List<BalloonParty.Core.Models.Customer>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,25 +13,25 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor(model => model.First().FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor(model => model.First().LastName)
             </th>
             @* <th>
                 @Html.DisplayNameFor(model => model.CustomerPw)
             </th> *@
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                @Html.DisplayNameFor(model => model.First().Address)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                @Html.DisplayNameFor(model => model.First().City)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.State)
+                @Html.DisplayNameFor(model => model.First().State)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ZipCode)
+                @Html.DisplayNameFor(model => model.First().ZipCode)
             </th>
             <th></th>
         </tr>
