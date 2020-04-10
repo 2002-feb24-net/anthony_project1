@@ -1,4 +1,4 @@
-@model List<BalloonParty.DataAccess.SQLData.StoreInventory>
+@model IEnumerable<BalloonParty.DataAccess.SQLData.StoreInventory>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,16 +13,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.First().ProductName)
+                @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.First().ProductCount)
+                @Html.DisplayNameFor(model => model.ProductCount)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.First().Product)
+                @Html.DisplayNameFor(model => model.Product)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.First().Store)
+                @Html.DisplayNameFor(model => model.Store)
             </th>
             <th></th>
         </tr>
@@ -51,4 +51,4 @@
 }
     </tbody>
 </table>
-<a class="button" asp-controller="Store" asp-action="Index">Back to List</a>
+<a asp-controller="Store" asp-action="Index">Back to List</a>

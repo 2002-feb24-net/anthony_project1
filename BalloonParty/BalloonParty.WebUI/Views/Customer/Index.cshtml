@@ -7,7 +7,8 @@
 <h1>Customers</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="button" asp-action="Create">Create New</a>
+    <a class="button" asp-controller="CustomerOrderrs" asp-action="Index">Orders</a>
 </p>
 <table class="table">
     <thead>
@@ -61,9 +62,8 @@
                 @Html.DisplayFor(modelItem => item.ZipCode)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.EmailAddress">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EmailAddress">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EmailAddress">Delete</a>
+                <a class="button" asp-action="Edit" asp-route-id="@item.EmailAddress">Edit</a>
+                <a class="button" asp-action="Details" asp-route-id="@item.EmailAddress">Details</a>
             </td>
         </tr>
 }

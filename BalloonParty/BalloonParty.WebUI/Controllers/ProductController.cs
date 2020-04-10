@@ -9,27 +9,22 @@ using BalloonParty.DataAccess.SQLData;
 
 namespace BalloonParty.WebUI.Controllers
 {
-    public class StoreController : Controller
+    public class ProductController : Controller
     {
-        private readonly BalloonParty.Core.Interfaces.IStore _repo;
-        private readonly BalloonParty.DataAccess.SQLData.BalloonPartyContext _context;
-        public StoreController(BalloonParty.Core.Interfaces.IStore repo, BalloonParty.DataAccess.SQLData.BalloonPartyContext context)
+        private readonly BalloonPartyContext _context;
+
+        public ProductController(BalloonPartyContext context)
         {
-            _repo = repo;
             _context = context;
         }
-        // GET: Store
-        public ActionResult Index()
+
+        // GET: Product
+        public async Task<IActionResult> Index()
         {
-            var info = _repo.GetAllStores();
-            if (info == null)
-            {
-                return NotFound();
-            }
-            return View(info);
+            return View(await _context.Products.ToListAsync());
         }
 
-        // GET: Store/Details/5
+        // GET: Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,39 +32,39 @@ namespace BalloonParty.WebUI.Controllers
                 return NotFound();
             }
 
-            var store = await _context.Store
-                .FirstOrDefaultAsync(m => m.StoreId == id);
-            if (store == null)
+            var products = await _context.Products
+                .FirstOrDefaultAsync(m => m.ProductId == id);
+            if (products == null)
             {
                 return NotFound();
             }
 
-            return View(store);
+            return View(products);
         }
 
-        // GET: Store/Create
+        // GET: Product/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Store/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // POST: Product/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StoreName,StoreUsername,StorePw,Address,City,State,ZipCode,StoreId")] Store store)
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ProductPrice")] Products products)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(store);
+                _context.Add(products);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(store);
+            return View(products);
         }
 
-        // GET: Store/Edit/5
+        // GET: Product/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,22 +72,22 @@ namespace BalloonParty.WebUI.Controllers
                 return NotFound();
             }
 
-            var store = await _context.Store.FindAsync(id);
-            if (store == null)
+            var products = await _context.Products.FindAsync(id);
+            if (products == null)
             {
                 return NotFound();
             }
-            return View(store);
+            return View(products);
         }
 
-        // POST: Store/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // POST: Product/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StoreName,StoreUsername,StorePw,Address,City,State,ZipCode,StoreId")] Store store)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ProductPrice")] Products products)
         {
-            if (id != store.StoreId)
+            if (id != products.ProductId)
             {
                 return NotFound();
             }
@@ -101,12 +96,12 @@ namespace BalloonParty.WebUI.Controllers
             {
                 try
                 {
-                    _context.Update(store);
+                    _context.Update(products);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StoreExists(store.StoreId))
+                    if (!ProductsExists(products.ProductId))
                     {
                         return NotFound();
                     }
@@ -117,10 +112,10 @@ namespace BalloonParty.WebUI.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(store);
+            return View(products);
         }
 
-        // GET: Store/Delete/5
+        // GET: Product/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -128,36 +123,30 @@ namespace BalloonParty.WebUI.Controllers
                 return NotFound();
             }
 
-            var store = await _context.Store
-                .FirstOrDefaultAsync(m => m.StoreId == id);
-            if (store == null)
+            var products = await _context.Products
+                .FirstOrDefaultAsync(m => m.ProductId == id);
+            if (products == null)
             {
                 return NotFound();
             }
 
-            return View(store);
+            return View(products);
         }
 
-        // POST: Store/Delete/5
+        // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var store = await _context.Store.FindAsync(id);
-            _context.Store.Remove(store);
+            var products = await _context.Products.FindAsync(id);
+            _context.Products.Remove(products);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StoreExists(int id)
+        private bool ProductsExists(int id)
         {
-            return _context.Store.Any(e => e.StoreId == id);
-        }
-
-        public ActionResult ShopStore(int id)
-        {
-            var info = _repo.GetStoreInvetoryByID(id);
-            return View(info);
+            return _context.Products.Any(e => e.ProductId == id);
         }
     }
 }
