@@ -24,7 +24,7 @@ namespace BalloonParty.DataAccess.Repositories
         public BalloonParty.Core.Models.Customer GetCustomersByID(string EmailAddress)
         {
 
-            var customer = _context.Customer.First(p => p.EmailAddress == EmailAddress);
+            var customer = _context.Customer.SingleOrDefault(p => p.EmailAddress == EmailAddress);
 
             if(customer == null)
             {
@@ -37,15 +37,25 @@ namespace BalloonParty.DataAccess.Repositories
         {
             var customers = _context.Customer.ToList();
 
-            return customers.Select(Mapper.MapCustomer).ToList();
+            return customers.Select(Mapper.MapCORECustomer).ToList();
         }
 
-        public void AddNewCustomer()
+        public void AddNewCustomer(BalloonParty.Core.Models.Customer customer)
         {
-            var newCustomer = _context.Customer;
+            var newCustomer = Mapper.MapSQLCustomer(customer);
             _context.Add(newCustomer);
             Save();
         }
+
+
+        public void UpdateCustomer(Core.Models.Customer customer)
+        {
+            DataAccess.SQLData.Customer currentCustomer = _context.Customer.Find(customer.EmailAddress);
+            DataAccess.SQLData.Customer updatedCustomer = Mapper.MapSQLCustomer(customer);
+            _context.Entry(currentCustomer).CurrentValues.SetValues(updatedCustomer);
+            Save();
+        }
+
 
         public void Save()
         {

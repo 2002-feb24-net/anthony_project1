@@ -13,7 +13,9 @@ namespace BalloonParty.Core.Interfaces
         Customer GetCustomersByID(string EmailAddress);
         // void AddCustomer(Customer customer);
         List<Customer> GetAllCustomers();
-        void AddNewCustomer();
+        void AddNewCustomer(Customer customer);
+
+        void UpdateCustomer(Customer customer);
         // void Save();
     }
 }
