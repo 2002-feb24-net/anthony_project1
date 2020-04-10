@@ -19,11 +19,10 @@ namespace BalloonParty.WebUI.Controllers
         }
 
         // GET: StoreInventory
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromRoute]int id)
         {
-            var balloonPartyContext = _context.StoreInventory.Include(s => s.Product).Include(s => s.Store);
-            return View(await balloonPartyContext.ToListAsync());
-
+            var storeData = _context.StoreInventory.Where(s => s.StoreId == id);
+            return View(await storeData.ToListAsync());
         }
 
         // GET: StoreInventory/Details/5

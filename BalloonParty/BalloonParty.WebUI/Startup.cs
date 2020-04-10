@@ -29,6 +29,7 @@ namespace BalloonParty.WebUI
         {
             services.AddControllersWithViews();
             services.AddScoped<ICustomers, CustomerRepo>();
+            services.AddScoped<IStore, StoreRepo>();
 
 
             services.AddDbContext<BalloonParty.DataAccess.SQLData.BalloonPartyContext>(options =>

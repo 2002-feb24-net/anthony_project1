@@ -72,11 +72,11 @@ namespace BalloonParty.WebUI.Controllers
 
         // GET: Customer/Create
 
-        public async Task<ActionResult> Create([Bind("FirstName,LastName,EmailAddress,CustomerPw,Address,City,State,ZipCode")] CustomerViewModel viewModel)
+        public ActionResult Create([Bind("FirstName,LastName,EmailAddress,CustomerPw,Address,City,State,ZipCode")] CustomerViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var newCustomer = new BalloonParty.DataAccess.SQLData.Customer
+                var newCustomer = new BalloonParty.Core.Models.Customer
                 {
                     FirstName = viewModel.FirstName,
                     LastName = viewModel.LastName,
@@ -87,8 +87,7 @@ namespace BalloonParty.WebUI.Controllers
                     State = viewModel.State,
                     ZipCode = int.Parse(viewModel.ZipCode),
                 };
-                _context.Add(newCustomer);
-                await _context.SaveChangesAsync();
+                _repo.AddNewCustomer(newCustomer);
                 return RedirectToAction(nameof(Index));
             }
             return  View(viewModel);
@@ -111,7 +110,53 @@ namespace BalloonParty.WebUI.Controllers
         //     return View(customer);
         // }
 
+        public ActionResult Edit(string EmailAddress)
+        {
+            Core.Models.Customer customer = _repo.GetCustomersByID(EmailAddress);
+            var viewModel = new CustomerEditViewModel
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName,
+                EmailAddress =  customer.EmailAddress,
+                CustomerPw = customer.CustomerPw,
+                Address = customer.Address,
+                City = customer.City,
+                State = customer.State,
+                //ZipCode = customer.ZipCode,
 
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([FromRoute]string EmailAddress, [Bind("FirstName,LastName,EmailAddress,CustomerPw,Address,City,State,ZipCode")] CustomerEditViewModel viewModel)
+        {
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    Core.Models.Customer customer1 = _repo.GetCustomersByID(EmailAddress);
+                    customer1.FirstName = viewModel.FirstName;
+                    customer1.LastName = viewModel.LastName;
+                    customer1.EmailAddress = viewModel.EmailAddress;
+                    customer1.CustomerPw = viewModel.CustomerPw;
+                    customer1.Address = viewModel.Address;
+                    customer1.City = viewModel.City;
+                    customer1.State = viewModel.State;
+                    customer1.ZipCode = int.Parse(viewModel.ZipCode);
+
+                    _repo.UpdateCustomer(customer1);
+                    return  RedirectToAction(nameof(Index));
+                }
+            }
+            catch (Exception)
+            {
+
+                return View(viewModel);
+            }
+            return  RedirectToAction(nameof(Index));
+        }
 
         // // GET: Customer/Edit/5
         // public async Task<IActionResult> Edit(string id)

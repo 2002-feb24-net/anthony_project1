@@ -1,4 +1,4 @@
-@model IEnumerable<BalloonParty.DataAccess.SQLData.Store>
+@model List<BalloonParty.Core.Models.Store>
 
 @{
     ViewData["Title"] = "Index";
@@ -11,25 +11,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.StoreName)
-            </th>
-            @* <th>
-                @Html.DisplayNameFor(model => model.StoreUsername)
-            </th> *@
-            @* <th>
-                @Html.DisplayNameFor(model => model.StorePw)
-            </th> *@
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
+                @Html.DisplayNameFor(model => model.First().StoreName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                @Html.DisplayNameFor(model => model.First().Address)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.State)
+                @Html.DisplayNameFor(model => model.First().City)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ZipCode)
+                @Html.DisplayNameFor(model => model.First().State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.First().ZipCode)
             </th>
             <th></th>
         </tr>
@@ -40,12 +34,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.StoreName)
             </td>
-            @* <td>
-                @Html.DisplayFor(modelItem => item.StoreUsername)
-            </td> *@
-            @* <td>
-                @Html.DisplayFor(modelItem => item.StorePw)
-            </td> *@
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
@@ -59,10 +47,9 @@
                 @Html.DisplayFor(modelItem => item.ZipCode)
             </td>
             <td>
-                @* <a asp-action="Edit" asp-route-id="@item.StoreId">Edit</a> | *@
-                <a asp-action="Details" asp-route-id="@item.StoreId">See Store Details</a> |
-                <a asp-controller="StoreInventory" asp-action="Index">See Stores Inventory</a>
-                @* <a asp-action="Delete" asp-route-id="@item.StoreId">Delete</a> *@
+                <a class="button" asp-action="Details" asp-route-id="@item.StoreID">Store Info</a>
+                <a class="button" asp-controller="StoreInventory" asp-action="Index" asp-rote-id="@item.StoreID">Inventory</a>
+                <a class="button" asp-controller="CustomerOrderrs" asp-action="Create">Shop Store</a>
 
             </td>
         </tr>
@@ -70,6 +57,6 @@
     </tbody>
 </table>
 <p>
-    <a asp-action="Create">Create New Store Location</a>
+    <a class="button" asp-action="Create">Create New Store Location</a>
 
 </p>
