@@ -10,7 +10,7 @@ namespace BalloonParty.DataAccess
     {
 
 
-        public static BalloonParty.Core.Models.Customer MapCustomer(BalloonParty.DataAccess.SQLData.Customer customer)
+        public static BalloonParty.Core.Models.Customer MapCORECustomer(BalloonParty.DataAccess.SQLData.Customer customer)
         {
             return new BalloonParty.Core.Models.Customer
             {
@@ -25,7 +25,7 @@ namespace BalloonParty.DataAccess
             };
         }
 
-        public static BalloonParty.DataAccess.SQLData.Customer MapCustomer1(BalloonParty.Core.Models.Customer customer)
+        public static BalloonParty.DataAccess.SQLData.Customer MapSQLCustomer(BalloonParty.Core.Models.Customer customer)
         {
             return new BalloonParty.DataAccess.SQLData.Customer
             {
@@ -52,6 +52,45 @@ namespace BalloonParty.DataAccess
                 City = customer.City,
                 State = customer.State,
                 ZipCode = customer.ZipCode,
+            };
+        }
+
+        public static BalloonParty.Core.Models.StoreInventory MapInventoryByID(BalloonParty.DataAccess.SQLData.StoreInventory inventory)
+        {
+            return new BalloonParty.Core.Models.StoreInventory
+            {
+                ProductName = inventory.ProductName,
+                ProductId = inventory.ProductId,
+                ProductCount =  inventory.ProductCount,
+                SinventoryId = inventory.SinventoryId,
+            };
+        }
+
+        public static BalloonParty.Core.Models.Store MapStoreByID(BalloonParty.DataAccess.SQLData.Store store)
+        {
+            return new BalloonParty.Core.Models.Store
+            {
+                StoreName = store.StoreName,
+                StoreUsername = store.StoreUsername,
+                StorePw = store.StorePw,
+                Address = store.Address,
+                City = store.City,
+                State = store.State,
+                ZipCode = store.ZipCode,
+                StoreID = store.StoreId,
+            };
+        }
+
+        public static BalloonParty.DataAccess.SQLData.CustomerOrders MapCustomerOrderCORE(BalloonParty.Core.Models.CustomerOrders customerOrders)
+        {
+            return new BalloonParty.DataAccess.SQLData.CustomerOrders
+            {
+                CustomerEmail = customerOrders.CustomerEmail,
+                OrderDate = customerOrders.OrderDate,
+                FullProductCount = customerOrders.FullProductCount,
+                TotalPrice = customerOrders.TotalPrice,
+                CustomerOrderId = customerOrders.CustomerOrderId,
+                ProductName = customerOrders.ProductName,
             };
         }
     }
