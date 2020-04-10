@@ -1,6 +1,8 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
+navbar{
+  background-color: darkgrey;
+}
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -61,8 +63,10 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  background-color: rgb(210, 223, 248);
 }
 .footer {
+  background-color: darkgrey;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -77,38 +81,6 @@ body {
   padding: .5em;
   text-decoration: none;
 }
-
-.homebody {
-  background-image: url(../images/ffbBalloons.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 100% 100%;
-}
-
-/* div.shadow {
-    position: absolute;
-    max-width: 100%;
-    max-height: 100%;
-    top: 100%;
-    left: 100%;
-    overflow: hidden;
-}
-
-img.logo {
-  position: relative;
-  max-width: 100%;
-  max-height: 100%;
-  margin-top: 50%;
-  margin-left: 50%;
-} */
-
-/* .container{
-  width: 100vw;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-  margin: 0;
-  } */
 
 img{
   border-radius: 35px;

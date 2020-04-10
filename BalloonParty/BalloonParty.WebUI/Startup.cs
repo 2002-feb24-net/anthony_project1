@@ -33,7 +33,7 @@ namespace BalloonParty.WebUI
 
 
             services.AddDbContext<BalloonParty.DataAccess.SQLData.BalloonPartyContext>(options =>
-                options.UseSqlServer(Configuration["ConnectionStrings__BalloonPartyContext"]));
+                options.UseSqlServer(Configuration.GetConnectionString("BalloonPartyContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
