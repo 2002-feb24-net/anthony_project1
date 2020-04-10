@@ -47,7 +47,10 @@ namespace BalloonParty.DataAccess.Repositories
             Save();
         }
 
-
+        /// <summary>
+        /// Takes Customer information annd updates the database with the new information
+        /// </summary>
+        /// <param name="customer"></param>
         public void UpdateCustomer(Core.Models.Customer customer)
         {
             DataAccess.SQLData.Customer currentCustomer = _context.Customer.Find(customer.EmailAddress);
